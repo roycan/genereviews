@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GeneReviews Search</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #333;
+        }
+        
+        header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+        
+        .home-button-container {
+            margin-bottom: 15px;
+        }
+        
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .home-button svg {
+            margin-right: 8px;
+        }
+        
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+        
+        h1 {
+            color: #2c3e50;
+        }
+        
+        .search-container {
+            margin: 30px 0;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        #searchInput {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        #searchButton {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #searchButton:hover {
+            background-color: #2980b9;
+        }
+        
+        #searchResults {
+            margin-top: 20px;
+        }
+        
+        .searchHeader {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .resultItem {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        
+        .resultItem h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .resultItem a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .resultItem a:hover {
+            text-decoration: underline;
+        }
+        
+        .resultPath {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .noResults {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            #searchInput {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            #searchButton {
+                border-radius: 4px;
+            }
+        }
+    </style>
+<link href="/mirror/static/css/responsive.css" rel="stylesheet"/><script src="/mirror/static/js/responsive.js"></script></head>
+<body>
+<header>
+<div class="home-button-container">
+<a class="home-button" href="index.html">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+                Return to Home
+            </a>
+</div>
+<h1>GeneReviews Search</h1>
+<p>Search for any term across all GeneReview articles</p>
+</header>
+<main>
+<div class="search-container">
+<div class="search-box">
+<input autofocus="" id="searchInput" placeholder="Enter search term..." type="text"/>
+<button id="searchButton">Search</button>
+</div>
+<div id="searchResults" style="display: none;"></div>
+</div>
+<div id="searchInfo">
+<h2>About This Search Tool</h2>
+<p>This tool allows you to search across all 800+ GeneReviews articles. The search index is based on the titles of all GeneReviews articles.</p>
+<p>To search:</p>
+<ul>
+<li>Enter any term related to a genetic condition, gene, or disease</li>
+<li>Press Enter or click the Search button</li>
+<li>Click on any result to view the full article</li>
+</ul>
+<p>Examples: "syndrome", "disorder", "deficiency", "muscular", etc.</p>
+</div>
+</main>
+<footer>
+<p>GeneReviews® Static Mirror Search | <a href="index.html">Return to Homepage</a></p>
+<p style="margin-top: 10px; font-size: 0.9em; color: #666;">This website mirror, static indexed search and mobile-friendlier layout is brought to everyone by Roy and Monette this April 2025. Contact: <a href="mailto:roy@pshs.edu.ph">roy@pshs.edu.ph</a></p>
+</footer>
+<!-- Include the search index generated from genereviews_list.txt -->
+<script src="static/js/search-index.js"></script>
+<script>
+        // Function to normalize text for searching
+        function normalizeText(text) {
+            return text.toLowerCase().trim();
+        }
+        
+        // Search function that checks each entry in the index
+        function searchGeneReviews(query) {
+            if (!query || query.trim() === '') {
+                return [];
+            }
+            
+            // Normalize query and split into words
+            const normalizedQuery = normalizeText(query);
+            const queryWords = normalizedQuery.split(/\s+/);
+            
+            // Search through the index
+            return searchIndex.filter(entry => {
+                const normalizedTitle = normalizeText(entry.title);
+                const normalizedKeywords = normalizeText(entry.keywords);
+                
+                // Check for exact match in title or keywords
+                if (normalizedTitle.includes(normalizedQuery) || 
+                    normalizedKeywords.includes(normalizedQuery)) {
+                    return true;
+                }
+                
+                // Check for individual word matches
+                for (const word of queryWords) {
+                    if (word.length >= 3) { // Only consider words of at least 3 characters
+                        if (normalizedTitle.includes(word) || 
+                            normalizedKeywords.includes(word)) {
+                            return true;
+                        }
+                    }
+                }
+                
+                return false;
+            });
+        }
+        
+        // Function to display search results
+        function displaySearchResults(query, results) {
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+            
+            // Create header for results
+            const searchHeader = document.createElement('div');
+            searchHeader.className = 'searchHeader';
+            searchHeader.innerHTML = `<h2>Search Results</h2>
+                                     <p>Found ${results.length} results for: "${query}"</p>`;
+            resultsContainer.appendChild(searchHeader);
+            
+            if (results.length === 0) {
+                // No results found
+                const noResults = document.createElement('div');
+                noResults.className = 'noResults';
+                noResults.innerHTML = `<p>No results found for "${query}". Try a different search term.</p>`;
+                resultsContainer.appendChild(noResults);
+                return;
+            }
+            
+            // Create list of results
+            const resultsList = document.createElement('div');
+            resultsList.className = 'resultsList';
+            
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'resultItem';
+                resultItem.innerHTML = `
+                    <h3><a href="${result.filename}">${result.title}</a></h3>
+                    <p class="resultPath">${result.filename}</p>
+                `;
+                resultsList.appendChild(resultItem);
+            });
+            
+            resultsContainer.appendChild(resultsList);
+            resultsContainer.style.display = 'block';
+            
+            // Hide the search info when showing results
+            document.getElementById('searchInfo').style.display = 'none';
+        }
+        
+        // Function to perform search and display results
+        function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            if (!query || query.trim() === '') {
+                alert('Please enter a search term');
+                return;
+            }
+            
+            const results = searchGeneReviews(query);
+            displaySearchResults(query, results);
+            
+            // Make results visible and scroll to them
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.style.display = 'block';
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Set up event listeners when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for query parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('query') || urlParams.get('term');
+            
+            if (queryParam) {
+                // If query parameter exists, fill the search input and perform search
+                const searchInput = document.getElementById('searchInput');
+                searchInput.value = queryParam;
+                performSearch();
+            }
+            
+            // Listen for button click
+            document.getElementById('searchButton').addEventListener('click', performSearch);
+            
+            // Listen for Enter key in search input
+            document.getElementById('searchInput').addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

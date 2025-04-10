@@ -1,0 +1,173 @@
+/**
+ * Responsive styles for GeneReviews mirrored content
+ * These styles make the content more accessible on mobile devices
+ * with minimal changes to the original appearance
+ */
+
+@media screen and (max-width: 768px) {
+  /* Basic responsive adjustments */
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  
+  /* Make all images responsive */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Adjust content widths */
+  .container, .content, .col, .main-content,
+  .body-content, .source, div[class^="col"], 
+  div[class*=" col"], .grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Table adjustments */
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  /* Allow tables to scroll horizontally if needed */
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  /* Adjust spacing for readability */
+  h1, h2, h3, h4, h5, h6, p, ul, ol, li, div, section, article {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* Make text size readable on small screens */
+  body, p, li, div {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Improve form element display on small screens */
+  input, select, button, textarea {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Header adjustments */
+  .header {
+    height: auto !important;
+  }
+  
+  /* Navigation changes */
+  .searchlinks.inline_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Adjust search box */
+  .search .search_form {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .search .search_form select {
+    margin-bottom: 5px !important;
+  }
+  
+  .search .search_form .nowrap {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .search .search_form input[type="text"] {
+    width: 100% !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .search .search_form button {
+    margin-top: 5px !important;
+    width: 100% !important;
+  }
+  
+  /* Fix GeneReviews search box */
+  .bk_search {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .bk_search input[type="text"] {
+    width: 100% !important;
+    margin-bottom: 5px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .bk_search input[type="button"],
+  .bk_search a.jig-ncbibutton {
+    margin-top: 5px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+  
+  /* Make lists more readable */
+  .toc {
+    padding-left: 10px !important;
+  }
+  
+  /* Make article titles more readable */
+  .toc-item {
+    display: block !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* Add a back-to-top link at the bottom of long pages */
+  .back-to-top {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1000;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 20px;
+  }
+}
+
+/* Add a back-to-top button for all pages */
+#back-to-top-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3498db;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+#back-to-top-btn:hover {
+  background-color: #2980b9;
+}

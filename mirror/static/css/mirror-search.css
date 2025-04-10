@@ -1,0 +1,111 @@
+/* 
+ * Styling for the static search functionality for mirrored content
+ * This is designed to be compatible with the existing NCBI styles
+ */
+
+/* Search results container */
+.searchResults {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+}
+
+/* Search header */
+.searchHeader {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.searchHeader h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.searchHeader p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Results list */
+.resultsList {
+    margin: 0;
+    padding: 0;
+}
+
+/* Individual result item */
+.resultItem {
+    margin: 0 0 15px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.resultItem:last-child {
+    border-bottom: none;
+}
+
+.resultItem h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.resultItem h3 a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.resultItem h3 a:hover {
+    text-decoration: underline;
+}
+
+.resultItem .resultPath {
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+}
+
+/* No results message */
+.noResults {
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    color: #666;
+}
+
+/* Form clear button styling fix */
+.search_form button.clear {
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
+}
+
+/* Back to top link */
+.backToTop {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.backToTop a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.backToTop a:hover {
+    text-decoration: underline;
+}
+
+/* Fix for embedding in mirrored content */
+.jig-ncbibutton,
+.button_search {
+    cursor: pointer;
+}
